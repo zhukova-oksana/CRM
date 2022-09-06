@@ -1,9 +1,9 @@
 'use strict';
 const overlay = document.querySelector('.overlay');
-overlay.classList.add('overlay_type_visible');
+overlay.classList.add('overlay_visible');
 
 const modal = document.querySelector('.add-product');
-modal.classList.add('add-product_type_visible');
+modal.classList.add('add-product_visible');
 
 const productTitle = document.querySelector('.add-product__title');
 const productId = document.querySelector('.edit__text');

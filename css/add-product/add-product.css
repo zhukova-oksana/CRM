@@ -12,7 +12,7 @@
   display: none;
 }
 
-.add-product_type_visible {
+.add-product_visible {
   display: flex;
 }
 
@@ -27,7 +27,7 @@
   display: none;
 }
 
-.overlay_type_visible {
+.overlay_visible {
   display: flex;
 }
 
