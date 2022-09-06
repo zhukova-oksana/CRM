@@ -12,6 +12,10 @@
   display: none;
 }
 
+.add-product_type_visible {
+  display: flex;
+}
+
 .overlay {
   position: fixed;
   left: 0;
@@ -21,6 +25,10 @@
   background: rgba(0, 0, 0, .6);
   z-index: 1;
   display: none;
+}
+
+.overlay_type_visible {
+  display: flex;
 }
 
 .add-product__container {
