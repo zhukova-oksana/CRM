@@ -65,12 +65,25 @@ tableProduct.innerHTML = '';
 const createRow = (obj) => {
   const tr = document.createElement('tr');
   const keys = Object.keys(obj);
-  
+
   for (const key of keys) {
-    const td = document.createElement('td');
-    td.classList.add('table__td');
-    td.append(`${obj[key]}`);
-    tr.append(td);
+
+    tr.innerHTML = `<tr>\n` +
+      `              <td class="table__td">${obj.id}</td>\n` +
+      `              <td class="table__td">${obj.title}</td>\n` +
+      `              <td class="table__td">${obj.category}</td>\n` +
+      `              <td class="table__td table__td_color_grey table__td_type_text">${obj.units}</td>\n` +
+      `              <td class="table__td table__td_type_text">${obj.count}</td>\n` +
+      `              <td class="table__td">${obj.price}</td>\n` +
+      `              <td class="table__td">${obj.price*obj.count}</td>\n` +
+      `              <td class="table__td">\n` +
+      `                <div class="buttons">\n` +
+      `                  <a href="#" class="buttons__picture buttons__picture_type_image">Изображение</a>\n` +
+      `                  <a href="#" class="buttons__edit">Редактировать</a>\n` +
+      `                  <a href="#" class="buttons__delete">Удалить</a>\n` +
+      `                </div>\n` +
+      `              </td>\n` +
+      `            </tr>`
   }
   tableProduct.append(tr);
 }
@@ -80,6 +93,5 @@ const renderGoods = (arr) => {
     return createRow(item);
   });
 }
-
 
 renderGoods(arrayProduct);

@@ -41,6 +41,8 @@ body {
   line-height: 1.5;
   font-weight: 400;
   text-align: left;
+  background: #F2F0F9;
+  min-height: 100vh;
 }
 
 img {
