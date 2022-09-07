@@ -67,7 +67,6 @@ const createRow = (obj) => {
   const keys = Object.keys(obj);
 
   for (const key of keys) {
-
     tr.innerHTML = `<tr>\n` +
       `              <td class="table__td">${obj.id}</td>\n` +
       `              <td class="table__td">${obj.title}</td>\n` +
