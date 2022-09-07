@@ -16,7 +16,8 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/index.css">
-  <script src="js/index.js" defer></script>
+<!--  <script src="js/index.js" defer></script>-->
+  <script src="js/script.js" defer></script>
 </head>
 <body class="page">
 
@@ -51,11 +52,13 @@
             <tr>
               <td class="table__td thead__td">ID</td>
               <td class="table__td thead__td">Наименование</td>
-              <td class="table__td thead__td">Категория</td>
-              <td class="table__td thead__td table__td_type_text">ед/изм</td>
-              <td class="table__td thead__td table__td_type_text">количество</td>
               <td class="table__td thead__td">цена</td>
-              <td class="table__td thead__td">ИТОГ</td>
+              <td class="table__td thead__td">Описание</td>
+              <td class="table__td thead__td">Категория</td>
+              <td class="table__td thead__td">скидка</td>
+              <td class="table__td thead__td table__td_type_text">количество</td>
+              <td class="table__td thead__td table__td_type_text">ед/изм</td>
+<!--              <td class="table__td thead__td">ИТОГ</td>-->
               <td class="table__td thead__td"></td>
             </tr>
             </thead>
@@ -223,7 +226,7 @@
             </tbody>
             <tfoot class="tfoot">
             <tr>
-              <td colspan="8" class="tfoot__td">
+              <td colspan="9" class="tfoot__td">
                 <form class="sorting" action="https://jsonplaceholder.typicode.com/posts" method="post" name="sorting">
                   <label>Показывать на странице:
                     <select class="sorting__select" name="sort">
