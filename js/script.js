@@ -63,8 +63,9 @@ const tableProduct = document.querySelector('.table tbody');
 tableProduct.innerHTML = '';
 
 const createRow = (obj) => {
-  const keys = Object.keys(obj);
   const tr = document.createElement('tr');
+  const keys = Object.keys(obj);
+  
   for (const key of keys) {
     const td = document.createElement('td');
     td.classList.add('table__td');
