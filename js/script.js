@@ -64,14 +64,22 @@ tableProduct.innerHTML = '';
 
 const createRow = (obj) => {
   const tr = document.createElement('tr');
-  const keys = Object.keys(obj);
-  
-  for (const key of keys) {
-    const td = document.createElement('td');
-    td.classList.add('table__td');
-    td.append(`${obj[key]}`);
-    tr.append(td);
-  }
+      tr.innerHTML = `<tr>
+      <td class="table__td">${obj.id}</td>
+      <td class="table__td">${obj.title}</td>
+      <td class="table__td">${obj.category}</td>
+      <td class="table__td table__td_color_grey table__td_type_text">${obj.units}</td>
+      <td class="table__td table__td_type_text">${obj.count}</td>
+      <td class="table__td">${obj.price}</td>
+      <td class="table__td">${obj.price*obj.count}</td>
+      <td class="table__td">
+        <div class="buttons">
+          <a href="#" class="buttons__picture buttons__picture_type_image">Изображение</a>
+          <a href="#" class="buttons__edit">Редактировать</a>
+          <a href="#" class="buttons__delete">Удалить</a>
+        </div>
+      </td>
+      </tr>`
   tableProduct.append(tr);
 }
 
