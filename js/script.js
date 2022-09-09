@@ -90,3 +90,31 @@ const renderGoods = (arr) => {
 }
 
 renderGoods(arrayProduct);
+
+const button = document.querySelector('.button');
+const buttonClose = document.querySelector('.add-product__close');
+const overlay = document.querySelector('.overlay');
+const addProduct = document.querySelector('.add-product');
+
+const openWindow = () => {
+  button.addEventListener('click', () => {
+    overlay.classList.add('overlay_visible');
+    addProduct.classList.add('add-product_visible');
+  });
+
+  addProduct.addEventListener('click', event => {
+    event.stopPropagation();
+  });
+
+  overlay.addEventListener('click', () => {
+    overlay.classList.remove('overlay_visible');
+    addProduct.classList.remove('add-product_visible');
+  });
+
+  buttonClose.addEventListener('click', () => {
+    overlay.classList.remove('overlay_visible');
+    addProduct.classList.remove('add-product_visible');
+  });
+}
+
+openWindow();
