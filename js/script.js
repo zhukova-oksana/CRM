@@ -64,8 +64,9 @@ tableProduct.innerHTML = '';
 
 const createRow = (obj) => {
   const tr = document.createElement('tr');
+  tr.classList.add('table__tr');
   tr.innerHTML = `<tr>
-    <td class="table__td">${obj.id}</td>
+    <td class="table__td id">${obj.id}</td>
     <td class="table__td">${obj.title}</td>
     <td class="table__td">${obj.category}</td>
     <td class="table__td table__td_color_grey table__td_type_text">${obj.units}</td>
@@ -102,19 +103,41 @@ const openWindow = () => {
     addProduct.classList.add('add-product_visible');
   });
 
-  addProduct.addEventListener('click', event => {
-    event.stopPropagation();
+  overlay.addEventListener('click', e => {
+    const target = e.target;
+    if (target === overlay || target.closest('.add-product__close')) {
+      overlay.classList.remove('overlay_visible');
+      addProduct.classList.remove('add-product_visible');
+    }
   });
 
-  overlay.addEventListener('click', () => {
-    overlay.classList.remove('overlay_visible');
-    addProduct.classList.remove('add-product_visible');
-  });
-
-  buttonClose.addEventListener('click', () => {
-    overlay.classList.remove('overlay_visible');
-    addProduct.classList.remove('add-product_visible');
+  buttonClose.addEventListener('click', e => {
+    const target = e.target;
+    if (target.closest('.add-product__close')) {
+      overlay.classList.remove('overlay_visible');
+      addProduct.classList.remove('add-product_visible');
+    }
   });
 }
 
 openWindow();
+
+const table = document.querySelector('.table');
+
+const deleteTr = (tableProduct) => {
+  tableProduct.addEventListener('click', e => {
+    const target = e.target;
+
+    if (target.closest('.buttons__delete')) {
+      for (let i = 0; i < arrayProduct.length; i++) {
+        if (Number(target.closest('.table__tr').children[0].textContent) === arrayProduct[i].id) {
+          arrayProduct.splice(i,1);
+          }
+        }
+      target.closest('.table__tr').remove();
+      console.log('arrayProduct', arrayProduct);
+      }
+  });
+}
+
+deleteTr(tableProduct);
