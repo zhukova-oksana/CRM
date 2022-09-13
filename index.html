@@ -28,7 +28,7 @@
         <h1 class="crm__title">CRM</h1>
         <div class="final">
           <p class="final__text">Итоговая стоимость:</p>
-          <p class="final__price">$ 900.00</p>
+          <p class="final__price">$ <span class="total">900.00</span></p>
         </div>
       </div>
 
@@ -256,16 +256,16 @@
       <div class="add-product__header">
         <h2 class="add-product__title">Добавить товар</h2>
         <div class="edit">
-          <p class="edit__text">id: 201910241</p>
+          <p class="edit__text">id: <span class="vendor-code__id">201910241</span></p>
           <button class="edit__button" type="submit">Редактировать</button>
         </div>
       </div>
 
-      <form class="form-add" action="https://jsonplaceholder.typicode.com/posts" method="post" name="add_product">
+      <form class="form-add" method="post" name="add_product">
         <fieldset class="form-add__fieldset">
           <div class="form-add__item form-add__item_type_name">
             <label class="form-add__label" for="name">Наименование</label>
-            <input class="form-add__input" type="text" name="name" id="name" required>
+            <input class="form-add__input" type="text" name="title" id="name" required>
           </div>
 
           <div class="form-add__item form-add__item_type_category">
@@ -278,10 +278,10 @@
             <input class="form-add__input" type="text" name="units" id="units" required>
           </div>
 
-          <div class="form-add__item form-add__item_type_discount">
-            <label class="form-add__label" for="discount">Дисконт</label>
-            <input class="form-add__checkbox" type="checkbox" value="discount" id="discount" checked>
-            <input class="form-add__input form-add__input_width_small" type="text" name="discount" aria-label="Дисконт" disabled required>
+          <div class="form-add__item form-add__item_type_discont">
+            <label class="form-add__label" for="discont">Дисконт</label>
+            <input class="form-add__checkbox" type="checkbox" value="discont" id="discont">
+            <input class="form-add__input form-add__input_width_small" type="text" name="discont" aria-label="Дисконт" disabled>
           </div>
 
           <div class="form-add__item form-add__item_type_description">
@@ -289,14 +289,14 @@
             <textarea class="form-add__input form-add__input_type_text" name="description" id="description" cols="30" rows="5" required></textarea>
           </div>
 
-          <div class="form-add__item form-add__item_type_amount">
-            <label class="form-add__label" for="amount">Количество</label>
-            <input class="form-add__input" type="number" name="amount" id="amount" required>
+          <div class="form-add__item form-add__item_type_count">
+            <label class="form-add__label" for="count">Количество</label>
+            <input class="form-add__input" type="number" name="count" id="count" value="" required>
           </div>
 
           <div class="form-add__item form-add__item_type_price">
             <label class="form-add__label" for="price">Цена</label>
-            <input class="form-add__input" type="text" name="price" id="price" pattern="[0-9]+" required>
+            <input class="form-add__input" type="text" name="price" id="price" value="" pattern="[0-9]+" required>
           </div>
 
           <div class="form-add__item form-add__item_type_file">
@@ -309,7 +309,7 @@
         <div class="form-add__button">
           <div class="final">
             <p class="final__text">Итоговая стоимость:</p>
-            <p class="final__price">$ 900.00</p>
+            <p class="final__price price">$ <span class="price__total">900.00</span></p>
           </div>
           <button class="button" type="submit">Добавить товар</button>
         </div>
