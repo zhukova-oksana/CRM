@@ -164,9 +164,6 @@ const totalPrice = (arrayProduct) => {
   return price;
 }
 
-renderGoods(tableProduct, arrayProduct);
-deleteTr(tableProduct);
-
 const addProductPage = (product, tableProduct) => {
   tableProduct.append(createRow(product));
 }
@@ -223,6 +220,10 @@ const changeCost = (priceTotal) => {
     priceTotal.textContent = price.value * form.count.value;
   });
 }
+
+renderGoods(tableProduct, arrayProduct);
+total.textContent = totalPrice(arrayProduct);
+deleteTr(tableProduct);
 
 changeDiscont();
 changeCost(priceTotal);
