@@ -65,7 +65,7 @@ tableProduct.innerHTML = '';
 const createRow = (obj) => {
   const tr = document.createElement('tr');
   tr.classList.add('table__tr');
-  tr.innerHTML = `<tr>
+  tr.insertAdjacentHTML('beforeend',`<tr>
     <td class="table__td id">${obj.id}</td>
     <td class="table__td">${obj.title}</td>
     <td class="table__td">${obj.category}</td>
@@ -80,15 +80,16 @@ const createRow = (obj) => {
         <a href="#" class="buttons__delete">Удалить</a>
       </div>
     </td>
-  </tr>`;
-  tableProduct.appendChild(tr);
+  </tr>`);
 
+  return tr;
 }
 
-const renderGoods = (arr) => {
-  arr.map((item) => {
-    return createRow(item);
-  });
+const renderGoods = (elem, data) => {
+  const allRow = data.map(createRow);
+  elem.append(...allRow);
+
+  return allRow;
 }
 
 const button = document.querySelector('.button');
@@ -97,6 +98,7 @@ const overlay = document.querySelector('.overlay');
 const addProduct = document.querySelector('.add-product');
 
 const codeId = document.querySelector('.vendor-code__id');
+const priceTotal = document.querySelector('.price__total');
 
 const modalControl = () => {
   const openModal = () => {
@@ -134,7 +136,6 @@ const modalControl = () => {
     closeModal,
   }
 }
-// const table = document.querySelector('.table');
 
 const deleteTr = (tableProduct) => {
   tableProduct.addEventListener('click', e => {
@@ -163,20 +164,22 @@ const totalPrice = (arrayProduct) => {
   return price;
 }
 
-renderGoods(arrayProduct);
+renderGoods(tableProduct, arrayProduct);
 deleteTr(tableProduct);
 
 const addProductPage = (product, tableProduct) => {
   tableProduct.append(createRow(product));
 }
+
 const addProductData = (product, arrayProduct) => {
   arrayProduct.push(product);
   console.log('arrayProduct', arrayProduct);
   total.textContent = totalPrice(arrayProduct);
 }
+
 const form = document.querySelector('.form-add');
 
-const formControl = (form, closeModal) => {
+const formControl = (form, tableProduct, closeModal) => {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const formData = new FormData (e.target);
@@ -193,31 +196,36 @@ const formControl = (form, closeModal) => {
   })
 }
 
-const discont = document.querySelector('.form-add__checkbox');
-const discontText = form.discont[1];
+const changeDiscont = () => {
+  const discont = document.querySelector('.form-add__checkbox');
+  const discontText = form.discont[1];
 
-discont.addEventListener('change', e =>{
-  const checkbox = e.target;
+  discont.addEventListener('change', e =>{
+    const checkbox = e.target;
 
-  if (checkbox.checked === true) {
-    discontText.disabled = false;
-  } else {
-    discontText.disabled = true;
-    discontText.value = '';
-  }
-});
+    if (checkbox.checked === true) {
+      discontText.disabled = false;
+    } else {
+      discontText.disabled = true;
+      discontText.value = '';
+    }
+  });
+}
 
-const priceTotal = document.querySelector('.price__total');
-const price = form.price;
-const count = form.count;
+const changeCost = (priceTotal) => {
+  const price = form.price;
+  const count = form.count;
 
-price.addEventListener('input', e => {
-  priceTotal.textContent = price.value * form.count.value;
-});
-count.addEventListener('input', e => {
-  priceTotal.textContent = price.value * form.count.value;
-});
+  price.addEventListener('focusout', e => {
+    priceTotal.textContent = price.value * form.count.value;
+  });
+  count.addEventListener('focusout', e => {
+    priceTotal.textContent = price.value * form.count.value;
+  });
+}
 
+changeDiscont();
+changeCost(priceTotal);
 
 const {closeModal} = modalControl();
-formControl(form, closeModal);
+formControl(form, tableProduct, closeModal);
