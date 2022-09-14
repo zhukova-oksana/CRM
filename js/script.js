@@ -183,8 +183,6 @@ const formControl = (form, tableProduct, closeModal) => {
     const newProduct = Object.fromEntries(formData);
     newProduct.id = +codeId.textContent;
 
-    console.log(newProduct);
-
     addProductPage(newProduct, tableProduct);
     addProductData(newProduct, arrayProduct);
 
