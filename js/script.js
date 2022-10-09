@@ -92,7 +92,7 @@ const arrayProduct = [
     changeDiscont(form);
     changeCost(priceTotal, form);
 
-    const {closeModal} = modalControl(codeId);
+    const {closeModal} = modalControl(codeId, priceTotal);
     formControl(form, tableProduct, closeModal, codeId, total, arrayProduct);
   };
 
