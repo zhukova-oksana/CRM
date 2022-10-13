@@ -1,4 +1,21 @@
-'use strict';
+import control from './modules/control.js';
+import calculations from './modules/calculations.js';
+import * as del from './modules/delete.js';
+import {changeDiscont, changeCost} from './modules/change.js';
+import render from './modules/render.js'
+
+const {
+  modalControl,
+  formControl
+} = control;
+
+const {
+  totalPrice
+} = calculations;
+
+const {
+  renderGoods
+} = render;
 
 const arrayProduct = [
   {
@@ -59,172 +76,25 @@ const arrayProduct = [
   }
 ];
 
-const tableProduct = document.querySelector('.table tbody');
-tableProduct.innerHTML = '';
+{
+  const init = () => {
+    const tableProduct = document.querySelector('.table tbody');
+    const form = document.querySelector('.form-add');
+    const total = document.querySelector('.total');
+    const codeId = document.querySelector('.vendor-code__id');
+    const priceTotal = document.querySelector('.price__total');
 
-const createRow = (obj) => {
-  const tr = document.createElement('tr');
-  tr.classList.add('table__tr');
-  tr.insertAdjacentHTML('beforeend',`<tr>
-    <td class="table__td id">${obj.id}</td>
-    <td class="table__td">${obj.title}</td>
-    <td class="table__td">${obj.category}</td>
-    <td class="table__td table__td_color_grey table__td_type_text">${obj.units}</td>
-    <td class="table__td table__td_type_text">${obj.count}</td>
-    <td class="table__td">${obj.price}</td>
-    <td class="table__td total">${obj.price*obj.count}</td>
-    <td class="table__td">
-      <div class="buttons">
-        <a href="#" class="buttons__picture buttons__picture_type_image">Изображение</a>
-        <a href="#" class="buttons__edit">Редактировать</a>
-        <a href="#" class="buttons__delete">Удалить</a>
-      </div>
-    </td>
-  </tr>`);
+    tableProduct.innerHTML = '';
+    renderGoods(tableProduct, arrayProduct);
+    total.textContent = totalPrice(arrayProduct);
+    del.deleteTr(tableProduct, arrayProduct, total);
 
-  return tr;
-}
+    changeDiscont(form);
+    changeCost(priceTotal, form);
 
-const renderGoods = (elem, data) => {
-  const allRow = data.map(createRow);
-  elem.append(...allRow);
-
-  return allRow;
-}
-
-const button = document.querySelector('.button');
-const buttonClose = document.querySelector('.add-product__close');
-const overlay = document.querySelector('.overlay');
-const addProduct = document.querySelector('.add-product');
-
-const codeId = document.querySelector('.vendor-code__id');
-const priceTotal = document.querySelector('.price__total');
-
-const modalControl = () => {
-  const openModal = () => {
-    overlay.classList.add('overlay_visible');
-    addProduct.classList.add('add-product_visible');
-    const id = Math.round(Math.random() * 1000000000);
-    codeId.textContent = id;
-    priceTotal.textContent = 0;
+    const {closeModal} = modalControl(codeId, priceTotal);
+    formControl(form, tableProduct, closeModal, codeId, total, arrayProduct);
   };
 
-  const closeModal = () => {
-    overlay.classList.remove('overlay_visible');
-    addProduct.classList.remove('add-product_visible');
-  };
-
-  button.addEventListener('click', () => {
-    openModal();
-  });
-
-  overlay.addEventListener('click', e => {
-    const target = e.target;
-    if (target === overlay || target.closest('.add-product__close')) {
-      closeModal();
-    }
-  });
-
-  buttonClose.addEventListener('click', e => {
-    const target = e.target;
-    if (target.closest('.add-product__close')) {
-      closeModal();
-    }
-  });
-
-  return {
-    closeModal,
-  }
+  init();
 }
-
-const deleteTr = (tableProduct) => {
-  tableProduct.addEventListener('click', e => {
-    const target = e.target;
-
-    if (target.closest('.buttons__delete')) {
-      for (let i = 0; i < arrayProduct.length; i++) {
-        if (Number(target.closest('.table__tr').children[0].textContent) === arrayProduct[i].id) {
-          arrayProduct.splice(i,1);
-          }
-        }
-      target.closest('.table__tr').remove();
-      console.log('arrayProduct', arrayProduct);
-      total.textContent = totalPrice(arrayProduct);
-      }
-  });
-}
-
-const total = document.querySelector('.total');
-
-const totalPrice = (arrayProduct) => {
-  let price = 0;
-  arrayProduct.map((item) => {
-    price += (item.price * item.count);
-  });
-  return price;
-}
-
-const addProductPage = (product, tableProduct) => {
-  tableProduct.append(createRow(product));
-}
-
-const addProductData = (product, arrayProduct) => {
-  arrayProduct.push(product);
-  console.log('arrayProduct', arrayProduct);
-  total.textContent = totalPrice(arrayProduct);
-}
-
-const form = document.querySelector('.form-add');
-
-const formControl = (form, tableProduct, closeModal) => {
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const formData = new FormData (e.target);
-    const newProduct = Object.fromEntries(formData);
-    newProduct.id = +codeId.textContent;
-
-    addProductPage(newProduct, tableProduct);
-    addProductData(newProduct, arrayProduct);
-
-    form.reset();
-    closeModal();
-  })
-}
-
-const changeDiscont = () => {
-  const discont = document.querySelector('.form-add__checkbox');
-  const discontText = form.discont[1];
-
-  discont.addEventListener('change', e =>{
-    const checkbox = e.target;
-
-    if (checkbox.checked === true) {
-      discontText.disabled = false;
-    } else {
-      discontText.disabled = true;
-      discontText.value = '';
-    }
-  });
-}
-
-const changeCost = (priceTotal) => {
-  const price = form.price;
-  const count = form.count;
-
-  price.addEventListener('focusout', e => {
-    priceTotal.textContent = price.value * form.count.value;
-  });
-  count.addEventListener('focusout', e => {
-    priceTotal.textContent = price.value * form.count.value;
-  });
-}
-
-renderGoods(tableProduct, arrayProduct);
-total.textContent = totalPrice(arrayProduct);
-deleteTr(tableProduct);
-
-changeDiscont();
-changeCost(priceTotal);
-
-const {closeModal} = modalControl();
-formControl(form, tableProduct, closeModal);
