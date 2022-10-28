@@ -9,13 +9,16 @@ const {
   totalPrice
 } = calculations;
 
+const addImageUrl = (product) => {
+
+}
+
 const addProductPage = (product, tableProduct) => {
   tableProduct.append(createRow(product));
 }
 
 const addProductData = (product, arrayProduct, total) => {
   arrayProduct.push(product);
-  console.log('arrayProduct', arrayProduct);
   total.textContent = totalPrice(arrayProduct);
 };
 
