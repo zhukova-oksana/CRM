@@ -47,22 +47,24 @@ const modalControl = (codeId, priceTotal) => {
   }
 };
 
-const classControl = (product) => {
-  if ((product.images.big !== '') || (product.images.big !== null)) {
+const imageControl = (product) => {
+  if (product.images.name) {
     const link = document.querySelector('.buttons__picture_type_image');
+    link.setAttribute('data-pic', URL.createObjectURL(product.images));
     link.classList.remove('buttons__picture_type_image');
   }
 }
 
-const imageControl = (table) => {
+const imageModalControl = (table) => {
   table.addEventListener('click', e => {
     const target = e.target;
     if (target.closest('.buttons__picture')) {
       const url = target.getAttribute('data-pic');
-
-      const left = (screen.width - 600) / 2;
-      const top = (screen.height - 600) / 2;
-      const win = open(url, '', `popup, width = 600, height = 600, top=${top}, left=${left}`);
+      if (url) {
+        const left = (screen.width - 600) / 2;
+        const top = (screen.height - 600) / 2;
+        open(url, '', `popup, width = 600, height = 600, top=${top}, left=${left}`);
+      }
     }
   });
 };
@@ -73,18 +75,15 @@ const formControl = (form, tableProduct, closeModal, codeId, total, arrayProduct
     const formData = new FormData(e.target);
     const newProduct = Object.fromEntries(formData);
     newProduct.id = +codeId.textContent;
-    console.log('newProduct.images', newProduct.images);
-    if (newProduct.images) {
-      newProduct.images.big = URL.createObjectURL(newProduct.images);
-    }
+
 
     console.log('newProduct', newProduct);
 
     addProductPage(newProduct, tableProduct);
     addProductData(newProduct, arrayProduct, total);
 
-    classControl(newProduct);
-    imageControl(tableProduct);
+    imageControl(newProduct);
+    imageModalControl(tableProduct);
 
     form.reset();
     closeModal();

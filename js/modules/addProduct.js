@@ -9,10 +9,6 @@ const {
   totalPrice
 } = calculations;
 
-const addImageUrl = (product) => {
-
-}
-
 const addProductPage = (product, tableProduct) => {
   tableProduct.append(createRow(product));
 }

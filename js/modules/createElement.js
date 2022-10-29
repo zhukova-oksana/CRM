@@ -11,7 +11,7 @@ const createRow = (obj) => {
     <td class="table__td total">${obj.price * obj.count}</td>
     <td class="table__td">
       <div class="buttons">
-        <a href="#" data-pic="${obj.images.big}" class="buttons__picture buttons__picture_type_image">Изображение</a>
+        <a href="#" class="buttons__picture buttons__picture_type_image">Изображение</a>
         <a href="#" class="buttons__edit">Редактировать</a>
         <a href="#" class="buttons__delete">Удалить</a>
       </div>
