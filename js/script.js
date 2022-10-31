@@ -7,7 +7,7 @@ import render from './modules/render.js'
 const {
   modalControl,
   formControl,
-  imageControl
+  imageModalControl
 } = control;
 
 const {
@@ -94,10 +94,12 @@ const arrayProduct = [];
 
     changeDiscont(form);
     changeCost(priceTotal, form);
-    // imageControl(tableProduct);
+
 
     const {closeModal} = modalControl(codeId, priceTotal);
     formControl(form, tableProduct, closeModal, codeId, total, arrayProduct);
+
+    imageModalControl(tableProduct);
   };
 
   init();

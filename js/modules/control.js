@@ -10,6 +10,8 @@ const modalControl = (codeId, priceTotal) => {
   const buttonClose = document.querySelector('.add-product__close');
   const overlay = document.querySelector('.overlay');
   const addProduct = document.querySelector('.add-product');
+  const form = document.querySelector('.form-add');
+  const discontText = form.discont[1];
 
   const openModal = () => {
     overlay.classList.add('overlay_visible');
@@ -17,6 +19,7 @@ const modalControl = (codeId, priceTotal) => {
     const id = Math.round(Math.random() * 1000000000);
     codeId.textContent = id;
     priceTotal.textContent = 0;
+    discontText.disabled = true;
   };
 
   const closeModal = () => {
@@ -77,13 +80,12 @@ const formControl = (form, tableProduct, closeModal, codeId, total, arrayProduct
     newProduct.id = +codeId.textContent;
 
 
-    console.log('newProduct', newProduct);
+    // console.log('newProduct', newProduct);
 
     addProductPage(newProduct, tableProduct);
     addProductData(newProduct, arrayProduct, total);
 
     imageControl(newProduct);
-    imageModalControl(tableProduct);
 
     form.reset();
     closeModal();
@@ -95,5 +97,5 @@ const formControl = (form, tableProduct, closeModal, codeId, total, arrayProduct
 export default {
   modalControl,
   formControl,
-  imageControl
+  imageModalControl
 }
