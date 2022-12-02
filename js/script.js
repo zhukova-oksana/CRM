@@ -2,7 +2,7 @@ import control from './modules/control.js';
 import calculations from './modules/calculations.js';
 import * as del from './modules/delete.js';
 import {changeDiscont, changeCost} from './modules/change.js';
-import render from './modules/render.js'
+import render from './modules/render.js';
 
 const {
   modalControl,
@@ -15,7 +15,8 @@ const {
 } = calculations;
 
 const {
-  renderGoods
+  renderGoods,
+  loadGoods
 } = render;
 
 const arrayProduct = [];
@@ -88,7 +89,10 @@ const arrayProduct = [];
     const priceTotal = document.querySelector('.price__total');
 
     tableProduct.innerHTML = '';
-    renderGoods(tableProduct, arrayProduct);
+
+    // renderGoods(tableProduct, arrayProduct);
+    loadGoods(renderGoods);
+
     total.textContent = totalPrice(arrayProduct);
     del.deleteTr(tableProduct, arrayProduct, total);
 

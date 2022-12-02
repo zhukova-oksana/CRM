@@ -1,9 +1,14 @@
 import add from './addProduct.js';
+import render from './render.js';
 
 const {
   addProductPage,
   addProductData
 } = add;
+
+const {
+  sendData,
+} = render;
 
 const modalControl = (codeId, priceTotal) => {
   const button = document.querySelector('.button');
@@ -16,7 +21,7 @@ const modalControl = (codeId, priceTotal) => {
   const openModal = () => {
     overlay.classList.add('overlay_visible');
     addProduct.classList.add('add-product_visible');
-    const id = Math.round(Math.random() * 1000000000);
+    const id = Math.round(Math.random() * 10000000000);
     codeId.textContent = id;
     priceTotal.textContent = 0;
     discontText.disabled = true;
@@ -75,10 +80,16 @@ const imageModalControl = (table) => {
 const formControl = (form, tableProduct, closeModal, codeId, total, arrayProduct) => {
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const newProduct = Object.fromEntries(formData);
-    newProduct.id = +codeId.textContent;
+    // const formData = new FormData(e.target);
+    // const newProduct = Object.fromEntries(formData);
+    // newProduct.id = +codeId.textContent;
 
+    sendData({
+      
+    }, (data) => {
+      form.reset();
+      closeModal();
+    });
 
     // console.log('newProduct', newProduct);
 
@@ -87,8 +98,8 @@ const formControl = (form, tableProduct, closeModal, codeId, total, arrayProduct
 
     imageControl(newProduct);
 
-    form.reset();
-    closeModal();
+    // form.reset();
+    // closeModal();
   })
 };
 
